@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Bea.Mat</RootNamespace>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Decompositions\CholDecomposition.cs" />
+    <Compile Remove="Decompositions\EigDecomposition.cs" />
+    <Compile Remove="Decompositions\QRDecomposition.cs" />
+    <Compile Remove="Decompositions\SVDecomposition.cs" />
+  </ItemGroup>
+
+</Project>
