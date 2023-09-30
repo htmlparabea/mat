@@ -190,8 +190,31 @@
             if (!IsNonSingular)
                 throw new InvalidOperationException("The matrix is singular.");
 
-            var y = ForwardSubstitute(L, b);  // y = L * b
-            var x = BackwardSubstitute(U, y); // x = U * y
+            // Forward substituion: y = L * b
+            var y = new Matrix(b.Rows, b.Columns);
+
+            for (int r = 0; r < y.Rows; r++)
+                {
+                var sum = 0.0;
+
+                for (int j = 0; j < r; j++)
+                    sum += L[r, j] * b[j, 0];
+
+                y[r, 0] = b[r, 0] - sum;
+                }
+
+            // Backward substitution: x = U * y
+            var x = new Matrix(y.Rows, y.Columns);
+
+            for (int r = x.Rows - 1; r >= 0; r--)
+                {
+                var sum = 0.0;
+
+                for (int j = r + 1; j < y.Rows; j++)
+                    sum += U[r, j] * x[j, 0];
+
+                x[r, 0] = (y[r, 0] - sum) / U[r, r];
+                }
 
             return x;
             }
