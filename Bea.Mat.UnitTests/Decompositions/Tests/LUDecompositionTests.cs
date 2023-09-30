@@ -172,7 +172,7 @@ namespace Bea.Mat.Decompositions.Tests
         /// <summary>
         /// - Given: A system of linear and non independent equations.
         /// - When: Method solve is called.
-        /// - Then: The solution to the system of equations is returned.
+        /// - Then: An exception is thrown.
         /// </summary>
         [Fact]
         public void GivenNonIndependentEquationsWhenSolveIsCalledThenExceptionIsThrown()
@@ -204,7 +204,7 @@ namespace Bea.Mat.Decompositions.Tests
         /// - Then: Exception is thrown.
         /// </summary>
         [Fact]
-        public void GivenInvalidRowsInBWhenSolveIsCalledThenTheSolutionIsReturned()
+        public void GivenInvalidRowsInBWhenSolveIsCalledThenExceptionIsThrown()
             {
             var av = new double[2, 2]
             {
@@ -232,7 +232,7 @@ namespace Bea.Mat.Decompositions.Tests
         /// - Then: Exception is thrown.
         /// </summary>
         [Fact]
-        public void GivenInvalidColumnsInBWhenSolveIsCalledThenTheSolutionIsReturned()
+        public void GivenInvalidColumnsInBWhenSolveIsCalledThenExceptionIsThrown()
             {
             var av = new double[2, 2]
             {
