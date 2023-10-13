@@ -222,6 +222,34 @@ namespace Bea.Mat
             }
 
         /// <summary>
+        /// Multiplies the current instance and the given matrix m by multiplying corresponding elements.
+        /// </summary>
+        /// <param name="m">
+        /// Matrix to multiply by.
+        /// </param>
+        /// <exception cref="InvalidOperationException">
+        /// If the dimensions of matrix do no match.
+        /// </exception>
+        /// <returns>
+        /// A new matrix as the result of the operation.
+        /// </returns>
+        public Matrix Times(Matrix m)
+            {
+            if (m.Rows != Rows)
+                throw new InvalidOperationException("The number of rows are different.");
+            if (m.Columns != Columns)
+                throw new InvalidOperationException("The number of columns are different.");
+
+            var res = new Matrix(Rows, Columns);
+
+            for (var r = 0; r < Rows; r++)
+                for (var c = 0; c < Columns; c++)
+                    res[r, c] = _data[r, c] * m[r, c];
+
+            return res;
+            }
+
+        /// <summary>
         /// Gets the values of the current instance as a bidimensional array.
         /// </summary>
         /// <returns>
