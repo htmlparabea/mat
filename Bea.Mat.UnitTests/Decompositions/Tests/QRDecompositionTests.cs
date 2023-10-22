@@ -93,6 +93,154 @@ namespace Bea.Mat.Decompositions.Tests
             Ensure.AllValuesAreEqual(res, data);
             }
 
+        /// <summary>
+        /// - Given: A system of linear and independent equations.
+        /// - When: Method solve is called.
+        /// - Then: The solution to the system of equations is returned.
+        /// </summary>
+        [Fact]
+        public void GivenIndependentEquationsWhenSolveIsCalledThenTheSolutionIsReturned()
+            {
+            var xv = new double[2, 1]
+            {
+                { 0.25 },
+                { 0.00 }
+            };
+            var av = new double[2, 2]
+            {
+                {  4.0,  3.0 },
+                {  6.0,  3.0 }
+            };
+            var bv = new double[2, 1]
+            {
+                {  1.0 },
+                {  1.5 }
+            };
+
+            var A = new Matrix(av);
+            var b = new Matrix(bv);
+            var dec = new QRDecomposition(A);
+            var x = dec.Solve(b);
+
+            Ensure.AllValuesAreEqual(x, xv);
+            }
+
+        /// <summary>
+        /// - Given: A system of linear and independent equations.
+        /// - When: Method solve is called.
+        /// - Then: The solution to the system of equations is returned.
+        /// </summary>
+        [Fact]
+        public void GivenOneMoreIndependentEquationsWhenSolveIsCalledThenTheSolutionIsReturned()
+            {
+            var xv = new double[2, 1]
+            {
+                { 0.25 },
+                { 1.25 }
+            };
+            var av = new double[2, 2]
+            {
+                {  2.0, -1.0 },
+                {  6.0,  3.0 }
+            };
+            var bv = new double[2, 1]
+            {
+                { -0.75 },
+                {  5.25 }
+            };
+
+            var a = new Matrix(av);
+            var b = new Matrix(bv);
+            var dec = new QRDecomposition(a);
+            var x = dec.Solve(b);
+
+            Ensure.AllValuesAreEqual(x, xv);
+            }
+
+        /// <summary>
+        /// - Given: A linear system of non independent equations.
+        /// - When: Method solve is called.
+        /// - Then: An exception is thrown.
+        /// </summary>
+        [Fact]
+        public void GivenNonIndependentEquationsWhenSolveIsCalledThenExceptionIsThrown()
+            {
+            var av = new double[3, 3]
+            {
+                {   4.0,  3.0, -1.0 },
+                {   6.0,  3.0,  2.0 },
+                {  12.0,  6.0,  4.0 }
+            };
+            var bv = new double[3, 1]
+            {
+                {  1.0 },
+                {  1.5 },
+                {  1.5 }
+            };
+
+            var A = new Matrix(av);
+            var b = new Matrix(bv);
+            var dec = new QRDecomposition(A);
+            var act = () => { var x = dec.Solve(b); };
+
+            act.Should().Throw<InvalidOperationException>();
+            }
+
+        /// <summary>
+        /// - Given: The number of rows in vector b is not equal to the number of row in A.
+        /// - When: Method solve is called.
+        /// - Then: Exception is thrown.
+        /// </summary>
+        [Fact]
+        public void GivenInvalidRowsInBWhenSolveIsCalledThenExceptionIsThrown()
+            {
+            var av = new double[2, 2]
+            {
+                {  4.0,  3.0 },
+                {  6.0,  3.0 }
+            };
+            var bv = new double[3, 1]
+            {
+                {  1.0 },
+                {  1.5 },
+                {  3.0 }
+            };
+
+            var A = new Matrix(av);
+            var b = new Matrix(bv);
+            var dec = new QRDecomposition(A);
+            var act = () => { var x = dec.Solve(b); };
+
+            act.Should().Throw<InvalidOperationException>();
+            }
+
+        /// <summary>
+        /// - Given: The number of columns in vector b is greater than 1.
+        /// - When: Method solve is called.
+        /// - Then: Exception is thrown.
+        /// </summary>
+        [Fact]
+        public void GivenInvalidColumnsInBWhenSolveIsCalledThenExceptionIsThrown()
+            {
+            var av = new double[2, 2]
+            {
+                {  4.0,  3.0 },
+                {  6.0,  3.0 }
+            };
+            var bv = new double[2, 2]
+            {
+                {  1.0,  3.0 },
+                {  1.5, -1.0 }
+            };
+
+            var A = new Matrix(av);
+            var b = new Matrix(bv);
+            var dec = new QRDecomposition(A);
+            var act = () => { var x = dec.Solve(b); };
+
+            act.Should().Throw<InvalidOperationException>();
+            }
+
         }
 
     }
