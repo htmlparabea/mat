@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <Compile Remove="Decompositions\EigDecomposition.cs" />
-    <Compile Remove="Decompositions\QRDecomposition.cs" />
     <Compile Remove="Decompositions\SVDecomposition.cs" />
   </ItemGroup>
 
